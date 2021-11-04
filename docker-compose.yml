@@ -1,10 +1,30 @@
 version: "3.7"
 
 services:
+  db_precato:
+    image: postgres
+    container_name: db_precato
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=precato
+    volumes:
+      - pgdata:/data/postgres
+
   app:
     build: .
     container_name: precato
     ports: 
       - 3030:3030
     volumes:
-      - .:/usr/precato
+      - .:/usr/app
+    links:
+      - db_precato
+    depends_on: 
+      - db_precato
+
+volumes:
+  pgdata:
+    driver: local

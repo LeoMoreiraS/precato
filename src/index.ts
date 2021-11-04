@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
+import "./database";
 
 dotenv.config();
 
