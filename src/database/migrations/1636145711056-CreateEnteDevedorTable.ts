@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateCredorTable1636057326804 implements MigrationInterface {
+export class CreateEnteDevedorTable1636145711056 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "credores",
+                name: "entes_devedores",
                 columns: [
                     {
                         name: "id",
@@ -16,13 +16,9 @@ export class CreateCredorTable1636057326804 implements MigrationInterface {
                         type: "varchar",
                     },
                     {
-                        name: "cpf",
+                        name: "cnpj",
                         type: "varchar",
                         isUnique: true,
-                    },
-                    {
-                        name: "status",
-                        type: "varchar",
                     },
                     {
                         name: "created_at",
@@ -40,6 +36,6 @@ export class CreateCredorTable1636057326804 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("credores");
+        queryRunner.dropTable("entes_devedores");
     }
 }
