@@ -34,10 +34,6 @@ class StubRepository implements IEnteDevedorRepository {
 }
 
 describe("CreateEnteDevedor tests", () => {
-    beforeAll(() => {
-        jest.spyOn(console, "log").mockImplementation(jest.fn());
-        jest.spyOn(console, "debug").mockImplementation(jest.fn());
-    });
     beforeEach(() => {
         container.clearInstances();
     });
@@ -90,7 +86,6 @@ describe("CreateEnteDevedor tests", () => {
             name: "valid_name",
             cnpj: valid_cnpj,
         });
-        console.log(enteDevedor);
         expect(enteDevedor).toEqual({
             id: "valid_uuid",
             name: "valid_name",
@@ -108,10 +103,13 @@ describe("CreateEnteDevedor tests", () => {
             )
             .resolve(CreateEnteDevedorService);
         const spyService = jest.spyOn(createEnteDevedorService, "execute");
-        createEnteDevedorService.execute({
-            name: "valid_name",
-            cnpj: duplicated_cnpj,
-        });
-        expect(spyService).toThrow();
+        try {
+            createEnteDevedorService.execute({
+                name: "valid_name",
+                cnpj: duplicated_cnpj,
+            });
+        } catch (e) {
+            expect(spyService).toThrow();
+        }
     });
 });
