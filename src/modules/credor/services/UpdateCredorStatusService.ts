@@ -22,7 +22,7 @@ export class UpdateCredorStatusService {
         if (!credorExists) throw new AppError("Credor not found!");
         if (approval === true) {
             const credor = await this.credorRepository.updateStatus({
-                status: "Aproved",
+                status: "Approved",
                 cpf,
             });
             return credor;

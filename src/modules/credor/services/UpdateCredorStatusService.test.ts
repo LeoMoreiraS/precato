@@ -13,6 +13,9 @@ const valid_cpf = cpfValidator.generate();
 
 @injectable()
 class StubRepository implements ICredorRepository {
+    list(): Promise<Credor[]> {
+        throw new Error("Method not implemented.");
+    }
     async updateStatus({
         status,
         cpf,
@@ -75,7 +78,7 @@ describe("UpdateCredorStatusService tests", () => {
         });
         expect(spyService).toThrow();
     });
-    test("Should return correct values if credor is aproved", async () => {
+    test("Should return correct values if credor is approved", async () => {
         const updateCredorStatusService = container
             .createChildContainer()
             .register<ICredorRepository>("CredorRepository", StubRepository)
@@ -89,7 +92,7 @@ describe("UpdateCredorStatusService tests", () => {
             id: "valid_uuid",
             name: "credor_name",
             cpf: valid_cpf,
-            status: "Aproved",
+            status: "Approved",
             created_at: date,
             updated_at: date,
         });

@@ -13,6 +13,9 @@ const valid_cpf = cpfValidator.generate();
 const duplicated_cpf = "126.229.456-80";
 @injectable()
 class StubRepository implements ICredorRepository {
+    list(): Promise<Credor[]> {
+        throw new Error("Method not implemented.");
+    }
     updateStatus({ status, cpf }: IUpdateStatusCredorDTO): Promise<Credor> {
         console.log(status, cpf);
         throw new Error("Method not implemented.");
