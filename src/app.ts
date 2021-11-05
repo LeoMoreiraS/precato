@@ -1,7 +1,9 @@
 import dotenv from "dotenv";
 import "express-async-errors";
 import express, { Request, Response, NextFunction } from "express";
+import swaggerUi from "swagger-ui-express";
 
+import swaggerFile from "../swagger.json";
 import "./database";
 import "./shared/container";
 import { AppError } from "./shared/errors/AppError";
@@ -12,6 +14,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(router);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(
     (err: Error, request: Request, response: Response, next: NextFunction) => {
         if (err instanceof AppError) {

@@ -1,0 +1,53 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Precato REST api Documentation",
+      "description": "This is an 'precatorio' api.",
+      "version": "1.0.0",
+      "contact": {
+        "email": "leomoreira.com@gmail.com"
+      }
+    },
+    "paths": {
+      "/credor": {
+        "post": {
+          "tags": ["Credor"],
+          "summary": "Create a credor",
+          "description": "Create a new credor",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "cpf": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "name": "Fulano de Tal",
+                    "cpf": "974.492.780-14"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created"
+            },
+            "400": {
+              "description": "Invalid cpf or credor already exists"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+        }
+    }
+  }
+  
