@@ -6,4 +6,5 @@ export interface ICredorRepository {
     create({ name, cpf }: ICreateCredorDTO): Promise<Credor>;
     findByCpf(cpf: string): Promise<Credor>;
     updateStatus({ status, cpf }: IUpdateStatusCredorDTO): Promise<Credor>;
+    list(): Promise<Credor[]>;
 }
