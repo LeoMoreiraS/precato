@@ -161,6 +161,45 @@
                     }
                 }
             }
+        },
+        "/entedevedor": {
+            "post": {
+                "tags": ["Ente Devedor"],
+                "summary": "Create a ente devedor",
+                "description": "Create a new ente devedor",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "cnpj": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Empresa de Tal",
+                                    "cnpj": "92.008.824/0001-26"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Invalid cnpj or ente devedor already exists"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
         }
     }
 }
