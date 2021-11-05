@@ -1,53 +1,166 @@
 {
     "openapi": "3.0.0",
     "info": {
-      "title": "Precato REST api Documentation",
-      "description": "This is an 'precatorio' api.",
-      "version": "1.0.0",
-      "contact": {
-        "email": "leomoreira.com@gmail.com"
-      }
+        "title": "Precato REST api Documentation",
+        "description": "This is an 'precatorio' api.",
+        "version": "1.0.0",
+        "contact": {
+            "email": "leomoreira.com@gmail.com"
+        }
     },
     "paths": {
-      "/credor": {
-        "post": {
-          "tags": ["Credor"],
-          "summary": "Create a credor",
-          "description": "Create a new credor",
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "cpf": {
-                      "type": "string"
+        "/credor": {
+            "post": {
+                "tags": ["Credor"],
+                "summary": "Create a credor",
+                "description": "Create a new credor",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "cpf": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "Fulano de Tal",
+                                    "cpf": "974.492.780-14"
+                                }
+                            }
+                        }
                     }
-                  },
-                  "example": {
-                    "name": "Fulano de Tal",
-                    "cpf": "974.492.780-14"
-                  }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Invalid cpf or credor already exists"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
                 }
-              }
-            }
-          },
-          "responses": {
-            "201": {
-              "description": "Created"
             },
-            "400": {
-              "description": "Invalid cpf or credor already exists"
-            },
-            "500": {
-              "description": "Internal Server Error"
+            "get": {
+                "tags": ["Credor"],
+                "summary": "List Credores",
+                "description": "List all credores",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "cpf": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "format": "uuid"
+                                            },
+                                            "created_at": {
+                                                "type": "string"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time"
+                                            },
+                                            "status": {
+                                                "type": "string",
+                                                "format": "date-time"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "No Credores found"
+                    }
+                }
             }
-          }
-        }
+        },
+        "/credor/{cpf}": {
+            "patch": {
+                "tags": ["Credor"],
+                "summary": "Update credor status",
+                "description": "Approve or reject a credor status",
+                "url": "/credor/:cpf",
+                "parameters": [
+                    {
+                        "name": "cpf",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "approval": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "example": {
+                                    "approval": true
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Credor not found or invalid status"
+                    }
+                }
+            }
         }
     }
-  }
-  
+}
