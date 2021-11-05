@@ -1,6 +1,7 @@
 import { cpf as cpfValidator } from "cpf-cnpj-validator";
 import { inject, injectable } from "tsyringe";
 
+import { AppError } from "../../../shared/errors/AppError";
 import { Credor } from "../entities/Credor";
 import { ICredorRepository } from "../repositories/interfaces/ICredorRepository";
 
@@ -16,9 +17,9 @@ export class CreateCredorService {
     ) {}
     async execute({ name, cpf }: IRequest): Promise<Credor> {
         const cpfIsValid = cpfValidator.isValid(cpf);
-        if (!cpfIsValid) throw new Error("Invalid cpf number!");
+        if (!cpfIsValid) throw new AppError("Invalid cpf number!");
         const credorAlreadyExists = await this.credorRepository.findByCpf(cpf);
-        if (credorAlreadyExists) throw new Error("Credor already exists!");
+        if (credorAlreadyExists) throw new AppError("Credor already exists!");
         const credor = await this.credorRepository.create({
             name,
             cpf,

@@ -15,8 +15,8 @@ export class CredorRepository implements ICredorRepository {
         await this.ormRepository.save(credor);
         return credor;
     }
-    findByCpf(cpf: string): Promise<Credor> {
-        console.log(cpf);
-        throw new Error("Method not implemented.");
+    async findByCpf(cpf: string): Promise<Credor> {
+        const credor = await this.ormRepository.findOne({ cpf });
+        return credor;
     }
 }
