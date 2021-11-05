@@ -6,8 +6,11 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "lint": "eslint --ext .ts,.js --ignore-path .gitignore .",
-    "test": "jest",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli"
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
+    "test": "jest --silent --passWithNoTests --noStackTrace --runInBand",
+    "test:verbose": "jest --passWithNoTests --runInBand",
+    "test:unit": "yarn test -- --watch",
+    "test:staged": "yarn test -- --findRelatedTests"
   },
   "dependencies": {
     "cpf-cnpj-validator": "^1.0.3",
