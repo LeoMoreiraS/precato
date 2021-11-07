@@ -108,6 +108,17 @@
                             "type": "string"
                         },
                         "required": true
+                    },
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "schema": {
+                            "type": "string",
+                            "format": "jwt"
+                        },
+                        "required": true,
+                        "example": "Bearer 'token'"
+                        
                     }
                 ],
                 "requestBody": {
@@ -155,6 +166,9 @@
                                 }
                             }
                         }
+                    }
+                    ,"401": {
+                        "description": "Unauthorized!"
                     },
                     "404": {
                         "description": "Credor not found or invalid status"
@@ -261,7 +275,7 @@
                                     "email": {
                                         "type": "string"
                                     },
-                                    "password":{
+                                    "password": {
                                         "type": "string"
                                     }
                                 },
@@ -333,7 +347,8 @@
                     }
                 }
             }
-        },"/user/login": {
+        },
+        "/user/login": {
             "post": {
                 "tags": ["User"],
                 "summary": "Login",
@@ -347,7 +362,7 @@
                                     "email": {
                                         "type": "string"
                                     },
-                                    "password":{
+                                    "password": {
                                         "type": "string"
                                     }
                                 },
