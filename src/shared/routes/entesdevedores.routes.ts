@@ -1,7 +1,9 @@
 import { Router } from "express";
 
-import { CreateEnteDevedorController } from "../../modules/enteDevedor";
-import { ListEntesDevedoresController } from "../../modules/enteDevedor/controllers/ListEntesDevedoresController";
+import {
+    CreateEnteDevedorController,
+    ListEntesDevedoresController,
+} from "../../modules/enteDevedor";
 
 const entesDevedoresRoutes = Router();
 
