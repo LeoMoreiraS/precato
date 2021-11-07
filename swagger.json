@@ -333,6 +333,44 @@
                     }
                 }
             }
+        },"/user/login": {
+            "post": {
+                "tags": ["User"],
+                "summary": "Login",
+                "description": "User login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password":{
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "email": "email@example.com",
+                                    "password": "senha123"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Invalid credentials!"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
         }
     }
 }
