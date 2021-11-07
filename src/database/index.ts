@@ -1,13 +1,13 @@
 import { createConnection, getConnectionOptions } from "typeorm";
 
 interface IOptions {
-  host: string;
+    host: string;
 }
 
 getConnectionOptions().then((options) => {
-  const newOptions = options as IOptions;
-  newOptions.host = "db_precato";
-  createConnection({
-    ...options,
-  });
+    const newOptions = options as IOptions;
+    newOptions.host = "db_precato";
+    createConnection({
+        ...options,
+    });
 });
