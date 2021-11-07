@@ -5,7 +5,7 @@ import {
     UpdateCredorStatusController,
     ListCredoresController,
 } from "../../modules/credor";
-import {} from "../../modules/credor/controllers/ListCredoresController";
+import { ensureLogin } from "../middleware/ensureLogin";
 
 const credoresRoutes = Router();
 
@@ -14,6 +14,6 @@ const updateCredorStatusController = new UpdateCredorStatusController();
 const listCredoresController = new ListCredoresController();
 
 credoresRoutes.post("/", createCredorController.handle);
-credoresRoutes.patch("/:cpf", updateCredorStatusController.handle);
+credoresRoutes.patch("/:cpf", ensureLogin, updateCredorStatusController.handle);
 credoresRoutes.get("/", listCredoresController.handle);
 export { credoresRoutes };
