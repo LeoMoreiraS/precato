@@ -10,6 +10,6 @@ const router = Router();
 router.use("/credor", credoresRoutes);
 router.use("/user", usersRoutes);
 router.use("/entedevedor", entesDevedoresRoutes);
-router.use("/payments", paymentRoutes);
+router.use("/payment", paymentRoutes);
 
 export { router };
