@@ -84,7 +84,6 @@ export class CreatePaymentService {
             });
             return payment;
         } catch (error) {
-            console.log(status);
             const payment = await this.paymentRepository.create({
                 delivery_id,
                 credor_id,
