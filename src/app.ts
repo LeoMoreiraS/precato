@@ -5,7 +5,7 @@ import express, { Request, Response, NextFunction } from "express";
 import swaggerUi from "swagger-ui-express";
 
 import swaggerFile from "../swagger.json";
-import "./database";
+import "./shared/database";
 import "./shared/container";
 import { AppError } from "./shared/errors/AppError";
 import { router } from "./shared/routes/routes";
