@@ -9,6 +9,10 @@ export class EnteDevedorRepository implements IEnteDevedorRepository {
     constructor() {
         this.ormRepository = getRepository(EnteDevedor);
     }
+    async find(id: string): Promise<EnteDevedor> {
+        const enteDevedor = await this.ormRepository.findOne(id);
+        return enteDevedor;
+    }
     async findByCnpj(cnpj: string): Promise<EnteDevedor> {
         const enteDevedor = await this.ormRepository.findOne({ cnpj });
         return enteDevedor;
