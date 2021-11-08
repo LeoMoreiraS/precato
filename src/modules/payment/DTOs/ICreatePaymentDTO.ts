@@ -1,4 +1,5 @@
 export interface ICreatePaymentDTO {
+    delivery_id: string;
     credor_id: string;
     ente_devedor_id?: string;
     start_value: number;
