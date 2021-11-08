@@ -18,6 +18,9 @@ export class Payment {
     id?: string;
 
     @Column()
+    delivery_id: string;
+
+    @Column()
     credor_id: string;
 
     @JoinColumn({ name: "credor_id" })

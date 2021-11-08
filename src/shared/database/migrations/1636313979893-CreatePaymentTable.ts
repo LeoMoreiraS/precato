@@ -16,6 +16,10 @@ export class CreatePaymentTable1636313979893 implements MigrationInterface {
                         type: "uuid",
                     },
                     {
+                        name: "delivery_id",
+                        type: "uuid",
+                    },
+                    {
                         name: "ente_devedor_id",
                         type: "uuid",
                         isNullable: true,
