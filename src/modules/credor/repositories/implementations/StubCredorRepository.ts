@@ -2,6 +2,7 @@ import { cpf as cpfValidator } from "cpf-cnpj-validator";
 import { injectable } from "tsyringe";
 
 import { ICreateCredorDTO, ICredorRepository } from "../..";
+import { valid_credor } from "../../../payment/repositories/implementations/StubPaymentRepository";
 import { IUpdateStatusCredorDTO } from "../../DTOs/IUpdateStatusCredorDTO";
 import { Credor } from "../../entities/Credor";
 
@@ -11,9 +12,11 @@ const duplicated_cpf = "126.229.456-80";
 
 @injectable()
 export class StubCredorRepository implements ICredorRepository {
-    find(id: string): Promise<Credor> {
-        console.log(id);
-        throw new Error("Method not implemented.");
+    async find(id: string): Promise<Credor> {
+        if (id === valid_credor.id) return valid_credor;
+        const credor = new Credor();
+        credor.status = "Invalid";
+        return credor;
     }
     list(): Promise<Credor[]> {
         throw new Error("Method not implemented.");

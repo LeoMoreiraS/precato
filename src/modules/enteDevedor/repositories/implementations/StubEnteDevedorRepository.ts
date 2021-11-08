@@ -6,15 +6,16 @@ import {
     EnteDevedor,
     ICreateEnteDevedorDTO,
 } from "../..";
+import { valid_ente_devedor } from "../../../payment/repositories/implementations/StubPaymentRepository";
 
 const date = new Date();
 const valid_cnpj = cnpjValidator.generate();
 const duplicated_cnpj = "13.161.111/0001-21";
 @injectable()
 export class StubEnteDevedorRepository implements IEnteDevedorRepository {
-    find(id: string): Promise<EnteDevedor> {
-        console.log(id);
-        throw new Error("Method not implemented.");
+    async find(id: string): Promise<EnteDevedor> {
+        if (id === valid_ente_devedor.id) return valid_ente_devedor;
+        return undefined;
     }
     async findByCnpj(cnpj: string): Promise<EnteDevedor> {
         if (cnpj === duplicated_cnpj) {
