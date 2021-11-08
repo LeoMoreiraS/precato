@@ -9,6 +9,10 @@ export class PaymentRepository implements IPaymentRepository {
     constructor() {
         this.ormRepository = getRepository(Payment);
     }
+    async findByDelivery(delivery_id: string): Promise<Payment[]> {
+        const payment = await this.ormRepository.find({ delivery_id });
+        return payment;
+    }
     async listInvalid(): Promise<Payment[]> {
         const payments = await this.ormRepository.find({ status: "Invalid" });
         return payments;
@@ -18,6 +22,7 @@ export class PaymentRepository implements IPaymentRepository {
         return payments;
     }
     async create({
+        delivery_id,
         start_value,
         end_value,
         credor_id,
@@ -28,6 +33,7 @@ export class PaymentRepository implements IPaymentRepository {
     }: ICreatePaymentDTO): Promise<Payment> {
         const payment = this.ormRepository.create();
         Object.assign(payment, {
+            delivery_id,
             start_value,
             end_value,
             credor_id,

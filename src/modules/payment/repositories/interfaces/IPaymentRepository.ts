@@ -9,6 +9,7 @@ export interface IPaymentRepository {
         start_value,
         end_value,
     }: ICreatePaymentDTO): Promise<Payment>;
+    findByDelivery(delivery_id: string): Promise<Payment[]>;
     list(): Promise<Payment[]>;
     listInvalid(): Promise<Payment[]>;
 }
