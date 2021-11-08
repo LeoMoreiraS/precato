@@ -12,18 +12,16 @@ import {
 } from "../repositories/implementations/StubCredorRepository";
 import { CreateCredorService } from "./CreateCredorService";
 
+const createCredorService = container
+    .createChildContainer()
+    .register<ICredorRepository>("CredorRepository", StubCredorRepository)
+    .resolve(CreateCredorService);
+
 describe("CreateCredorService tests", () => {
     beforeEach(() => {
         container.clearInstances();
     });
     test("Should call execute function with correct params", () => {
-        const createCredorService = container
-            .createChildContainer()
-            .register<ICredorRepository>(
-                "CredorRepository",
-                StubCredorRepository
-            )
-            .resolve(CreateCredorService);
         const spyService = jest.spyOn(createCredorService, "execute");
         createCredorService.execute({ name: "valid_name", cpf: valid_cpf });
         expect(spyService).toBeCalledWith({
@@ -32,13 +30,6 @@ describe("CreateCredorService tests", () => {
         });
     });
     test("Should throw if a cpf is invalid", () => {
-        const createCredorService = container
-            .createChildContainer()
-            .register<ICredorRepository>(
-                "CredorRepository",
-                StubCredorRepository
-            )
-            .resolve(CreateCredorService);
         const spyService = jest.spyOn(createCredorService, "execute");
         createCredorService.execute({
             name: "valid_name",
@@ -47,13 +38,6 @@ describe("CreateCredorService tests", () => {
         expect(spyService).toThrow();
     });
     test("Should return correct values", async () => {
-        const createCredorService = container
-            .createChildContainer()
-            .register<ICredorRepository>(
-                "CredorRepository",
-                StubCredorRepository
-            )
-            .resolve(CreateCredorService);
         const credor = await createCredorService.execute({
             name: "valid_name",
             cpf: valid_cpf,
@@ -69,13 +53,6 @@ describe("CreateCredorService tests", () => {
         });
     });
     test("Should not create credor if a credor cpf already exists", () => {
-        const createCredorService = container
-            .createChildContainer()
-            .register<ICredorRepository>(
-                "CredorRepository",
-                StubCredorRepository
-            )
-            .resolve(CreateCredorService);
         const spyService = jest.spyOn(createCredorService, "execute");
         createCredorService.execute({
             name: "valid_name",

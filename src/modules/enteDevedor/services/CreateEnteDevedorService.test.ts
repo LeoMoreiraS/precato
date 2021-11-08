@@ -12,18 +12,19 @@ import {
 } from "../repositories/implementations/StubEnteDevedorRepository";
 import { CreateEnteDevedorService } from "./CreateEnteDevedorService";
 
+const createEnteDevedorService = container
+    .createChildContainer()
+    .register<IEnteDevedorRepository>(
+        "EnteDevedorRepository",
+        StubEnteDevedorRepository
+    )
+    .resolve(CreateEnteDevedorService);
+
 describe("CreateEnteDevedor tests", () => {
     beforeEach(() => {
         container.clearInstances();
     });
     test("Should call execute function with correct params", () => {
-        const createEnteDevedorService = container
-            .createChildContainer()
-            .register<IEnteDevedorRepository>(
-                "EnteDevedorRepository",
-                StubEnteDevedorRepository
-            )
-            .resolve(CreateEnteDevedorService);
         const spyService = jest.spyOn(createEnteDevedorService, "execute");
         createEnteDevedorService.execute({
             name: "valid_name",
@@ -35,13 +36,6 @@ describe("CreateEnteDevedor tests", () => {
         });
     });
     test("Should throw if a cnpj is invalid", async () => {
-        const createEnteDevedorService = container
-            .createChildContainer()
-            .register<IEnteDevedorRepository>(
-                "EnteDevedorRepository",
-                StubEnteDevedorRepository
-            )
-            .resolve(CreateEnteDevedorService);
         const spyService = jest.spyOn(createEnteDevedorService, "execute");
         try {
             createEnteDevedorService.execute({
@@ -54,13 +48,6 @@ describe("CreateEnteDevedor tests", () => {
         }
     });
     test("Should return correct values", async () => {
-        const createEnteDevedorService = container
-            .createChildContainer()
-            .register<IEnteDevedorRepository>(
-                "EnteDevedorRepository",
-                StubEnteDevedorRepository
-            )
-            .resolve(CreateEnteDevedorService);
         const enteDevedor = await createEnteDevedorService.execute({
             name: "valid_name",
             cnpj: valid_cnpj,
@@ -74,13 +61,6 @@ describe("CreateEnteDevedor tests", () => {
         });
     });
     test("Should not create a EnteDevedor if EnteDevedor cnpj already exists", () => {
-        const createEnteDevedorService = container
-            .createChildContainer()
-            .register<IEnteDevedorRepository>(
-                "EnteDevedorRepository",
-                StubEnteDevedorRepository
-            )
-            .resolve(CreateEnteDevedorService);
         const spyService = jest.spyOn(createEnteDevedorService, "execute");
         try {
             createEnteDevedorService.execute({
