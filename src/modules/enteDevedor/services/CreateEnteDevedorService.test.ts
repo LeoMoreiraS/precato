@@ -1,41 +1,16 @@
 import "reflect-metadata";
-import { cnpj as cnpjValidator } from "cpf-cnpj-validator";
-import { container, injectable } from "tsyringe";
 
-import { IEnteDevedorRepository, ICreateEnteDevedorDTO, EnteDevedor } from "..";
+import { container } from "tsyringe";
 
+import { IEnteDevedorRepository } from "..";
+
+import {
+    StubEnteDevedorRepository,
+    valid_cnpj,
+    date,
+    duplicated_cnpj,
+} from "../repositories/implementations/StubEnteDevedorRepository";
 import { CreateEnteDevedorService } from "./CreateEnteDevedorService";
-
-const date = new Date();
-const valid_cnpj = cnpjValidator.generate();
-const duplicated_cnpj = "13.161.111/0001-21";
-@injectable()
-class StubRepository implements IEnteDevedorRepository {
-    find(id: string): Promise<EnteDevedor> {
-        console.log(id);
-        throw new Error("Method not implemented.");
-    }
-    async findByCnpj(cnpj: string): Promise<EnteDevedor> {
-        if (cnpj === duplicated_cnpj) {
-            const ente_devedor = await new EnteDevedor();
-            return ente_devedor;
-        }
-        return undefined;
-    }
-    list(): Promise<EnteDevedor[]> {
-        throw new Error("Method not implemented.");
-    }
-    async create({ name, cnpj }: ICreateEnteDevedorDTO): Promise<EnteDevedor> {
-        const enteDevedor = await {
-            id: "valid_uuid",
-            cnpj,
-            name,
-            updated_at: date,
-            created_at: date,
-        };
-        return enteDevedor;
-    }
-}
 
 describe("CreateEnteDevedor tests", () => {
     beforeEach(() => {
@@ -46,7 +21,7 @@ describe("CreateEnteDevedor tests", () => {
             .createChildContainer()
             .register<IEnteDevedorRepository>(
                 "EnteDevedorRepository",
-                StubRepository
+                StubEnteDevedorRepository
             )
             .resolve(CreateEnteDevedorService);
         const spyService = jest.spyOn(createEnteDevedorService, "execute");
@@ -64,7 +39,7 @@ describe("CreateEnteDevedor tests", () => {
             .createChildContainer()
             .register<IEnteDevedorRepository>(
                 "EnteDevedorRepository",
-                StubRepository
+                StubEnteDevedorRepository
             )
             .resolve(CreateEnteDevedorService);
         const spyService = jest.spyOn(createEnteDevedorService, "execute");
@@ -83,7 +58,7 @@ describe("CreateEnteDevedor tests", () => {
             .createChildContainer()
             .register<IEnteDevedorRepository>(
                 "EnteDevedorRepository",
-                StubRepository
+                StubEnteDevedorRepository
             )
             .resolve(CreateEnteDevedorService);
         const enteDevedor = await createEnteDevedorService.execute({
@@ -103,7 +78,7 @@ describe("CreateEnteDevedor tests", () => {
             .createChildContainer()
             .register<IEnteDevedorRepository>(
                 "EnteDevedorRepository",
-                StubRepository
+                StubEnteDevedorRepository
             )
             .resolve(CreateEnteDevedorService);
         const spyService = jest.spyOn(createEnteDevedorService, "execute");
