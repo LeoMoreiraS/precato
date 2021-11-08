@@ -1,6 +1,7 @@
 export * from "./repositories/implementations/PaymentRepository";
 export * from "./repositories/interfaces/IPaymentRepository";
 export * from "./DTOs/ICreatePaymentDTO";
+export * from "./DTOs/IRequestPaymentDTO";
 export * from "./entities/Payment";
 export * from "./controllers/CreatePaymentController";
 export * from "./controllers/ListInvalidPaymentsController";
