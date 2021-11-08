@@ -10,6 +10,10 @@ export class CredorRepository implements ICredorRepository {
     constructor() {
         this.ormRepository = getRepository(Credor);
     }
+    async find(id: string): Promise<Credor> {
+        const credor = await this.ormRepository.findOne(id);
+        return credor;
+    }
     async list(): Promise<Credor[]> {
         const credores = await this.ormRepository.find();
         return credores;
