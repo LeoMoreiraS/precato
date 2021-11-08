@@ -3,17 +3,10 @@ import { inject, injectable } from "tsyringe";
 import { AppError } from "../../../shared/errors/AppError";
 import { ICredorRepository } from "../../credor";
 import { IEnteDevedorRepository } from "../../enteDevedor";
+import { IRequestPaymentDTO } from "../DTOs/IRequestPaymentDTO";
 import { Payment } from "../entities/Payment";
 import { IPaymentRepository } from "../repositories/interfaces/IPaymentRepository";
 
-interface IRequestPaymentDTO {
-    delivery_id: string;
-    credor_id: string;
-    ente_devedor_id?: string;
-    start_value: number;
-    end_value: number;
-    date: Date;
-}
 @injectable()
 export class CreatePaymentService {
     constructor(
