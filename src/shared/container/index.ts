@@ -5,6 +5,7 @@ import {
     EnteDevedorRepository,
     IEnteDevedorRepository,
 } from "../../modules/enteDevedor";
+import { PaymentRepository, IPaymentRepository } from "../../modules/payment";
 import { IUserRepository, UserRepository } from "../../modules/user";
 
 container.registerSingleton<ICredorRepository>(
@@ -18,3 +19,8 @@ container.registerSingleton<IEnteDevedorRepository>(
 );
 
 container.registerSingleton<IUserRepository>("UserRepository", UserRepository);
+
+container.registerSingleton<IPaymentRepository>(
+    "PaymentRepository",
+    PaymentRepository
+);

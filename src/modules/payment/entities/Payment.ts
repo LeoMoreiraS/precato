@@ -6,7 +6,6 @@ import {
     UpdateDateColumn,
     ManyToOne,
     JoinColumn,
-    Double,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
 
@@ -39,10 +38,10 @@ export class Payment {
     reason: string;
 
     @Column({ type: "float" })
-    start_value: Double;
+    start_value: number;
 
     @Column({ type: "float" })
-    end_value: Double;
+    end_value: number;
 
     @Column()
     date: Date;
