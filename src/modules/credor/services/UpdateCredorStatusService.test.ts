@@ -13,6 +13,10 @@ const valid_cpf = cpfValidator.generate();
 
 @injectable()
 class StubRepository implements ICredorRepository {
+    find(id: string): Promise<Credor> {
+        console.log(id);
+        throw new Error("Method not implemented.");
+    }
     list(): Promise<Credor[]> {
         throw new Error("Method not implemented.");
     }
