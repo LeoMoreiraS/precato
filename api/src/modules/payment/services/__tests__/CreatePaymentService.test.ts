@@ -2,18 +2,17 @@ import "reflect-metadata";
 
 import { container } from "tsyringe";
 
-import { IPaymentRepository } from "..";
-
-import { ICredorRepository } from "../../credor";
-import { StubCredorRepository } from "../../credor/repositories/implementations/StubCredorRepository";
-import { IEnteDevedorRepository } from "../../enteDevedor";
-import { StubEnteDevedorRepository } from "../../enteDevedor/repositories/implementations/StubEnteDevedorRepository";
+import { IPaymentRepository } from "../..";
+import { ICredorRepository } from "../../../credor";
+import { StubCredorRepository } from "../../../credor/repositories/implementations/StubCredorRepository";
+import { IEnteDevedorRepository } from "../../../enteDevedor";
+import { StubEnteDevedorRepository } from "../../../enteDevedor/repositories/implementations/StubEnteDevedorRepository";
 import {
     StubPaymentRepository,
     valid_credor,
     valid_input,
-} from "../repositories/implementations/StubPaymentRepository";
-import { CreatePaymentService } from "./CreatePaymentService";
+} from "../../repositories/implementations/StubPaymentRepository";
+import { CreatePaymentService } from "../CreatePaymentService";
 
 const createPaymentService = container
     .createChildContainer()

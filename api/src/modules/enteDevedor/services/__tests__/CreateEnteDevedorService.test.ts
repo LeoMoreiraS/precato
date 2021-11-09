@@ -2,15 +2,14 @@ import "reflect-metadata";
 
 import { container } from "tsyringe";
 
-import { IEnteDevedorRepository } from "..";
-
+import { IEnteDevedorRepository } from "../..";
 import {
     StubEnteDevedorRepository,
     valid_cnpj,
     date,
     duplicated_cnpj,
-} from "../repositories/implementations/StubEnteDevedorRepository";
-import { CreateEnteDevedorService } from "./CreateEnteDevedorService";
+} from "../../repositories/implementations/StubEnteDevedorRepository";
+import { CreateEnteDevedorService } from "../CreateEnteDevedorService";
 
 const createEnteDevedorService = container
     .createChildContainer()

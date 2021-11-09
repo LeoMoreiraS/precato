@@ -1,14 +1,13 @@
 import "reflect-metadata";
 import { container } from "tsyringe";
 
-import { ICredorRepository } from "..";
-
+import { ICredorRepository } from "../..";
 import {
     date,
     duplicated_cpf,
     StubCredorRepository,
-} from "../repositories/implementations/StubCredorRepository";
-import { UpdateCredorStatusService } from "./UpdateCredorStatusService";
+} from "../../repositories/implementations/StubCredorRepository";
+import { UpdateCredorStatusService } from "../UpdateCredorStatusService";
 
 const updateCredorStatusService = container
     .createChildContainer()

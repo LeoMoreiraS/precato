@@ -3,9 +3,8 @@ import "reflect-metadata";
 import { hashSync } from "bcryptjs";
 import { container, injectable } from "tsyringe";
 
-import { IUserRepository, ICreateUserDTO, User } from "..";
-
-import { UserLoginService } from "./UserLoginService";
+import { IUserRepository, ICreateUserDTO, User } from "../..";
+import { UserLoginService } from "../UserLoginService";
 
 const date = new Date();
 const testUser = {

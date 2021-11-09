@@ -2,9 +2,8 @@ import "reflect-metadata";
 
 import { container, injectable } from "tsyringe";
 
-import { IUserRepository, ICreateUserDTO, User } from "..";
-
-import { CreateUserService } from "./CreateUserService";
+import { IUserRepository, ICreateUserDTO, User } from "../..";
+import { CreateUserService } from "../CreateUserService";
 
 const date = new Date();
 
