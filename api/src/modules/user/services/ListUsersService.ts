@@ -1,6 +1,5 @@
 import { inject, injectable } from "tsyringe";
 
-import { AppError } from "../../../shared/errors/AppError";
 import { User } from "../entities/User";
 import { IUserRepository } from "../repositories/interfaces/IUserRepository";
 
@@ -11,8 +10,6 @@ export class ListUsersService {
         private userRepository: IUserRepository
     ) {}
     async execute(): Promise<User[]> {
-        const users = await this.userRepository.list();
-        if (users.length === 0) throw new AppError("No user was found!");
-        return users;
+        return this.userRepository.list();
     }
 }

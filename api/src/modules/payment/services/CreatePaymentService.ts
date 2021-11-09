@@ -39,6 +39,7 @@ export class CreatePaymentService {
                 throw new AppError("Ente devedor does not exists.");
             }
             ente_id = ente_devedor_id;
+
             const credor = await this.credorRepository.find(credor_id);
             if (credor.status !== "Approved") {
                 status = "Invalid";
@@ -53,11 +54,13 @@ export class CreatePaymentService {
                     "Start value or end value less equal than zero."
                 );
             }
+
             if (start_value < end_value) {
                 status = "Invalid";
                 reason = "End value is bigger than start value.";
                 throw new AppError("End value is bigger than start value.");
             }
+
             const paymentAlreadyExists =
                 await this.paymentRepository.findByDelivery(delivery_id);
             const credorWithSamePayment = paymentAlreadyExists.find(
@@ -71,9 +74,10 @@ export class CreatePaymentService {
                     "Another payment with same delivery id and credor already exists."
                 );
             }
+
             status = "Valid";
 
-            const payment = await this.paymentRepository.create({
+            return this.paymentRepository.create({
                 delivery_id,
                 credor_id,
                 ente_devedor_id: ente_id,
@@ -82,9 +86,8 @@ export class CreatePaymentService {
                 date,
                 status,
             });
-            return payment;
         } catch (error) {
-            const payment = await this.paymentRepository.create({
+            return this.paymentRepository.create({
                 delivery_id,
                 credor_id,
                 ente_devedor_id: ente_id,
@@ -94,7 +97,6 @@ export class CreatePaymentService {
                 status,
                 reason,
             });
-            return payment;
         }
     }
 }

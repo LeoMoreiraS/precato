@@ -10,6 +10,9 @@ export class ListEntesDevedoresController {
         );
 
         const entesDevedores = await listEntesDevedoresService.execute();
-        return response.json(entesDevedores).status(200);
+        if (entesDevedores.length !== 0) {
+            return response.json(entesDevedores).status(200);
+        }
+        return response.json({}).status(204);
     }
 }

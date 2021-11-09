@@ -17,15 +17,19 @@ export class CreateEnteDevedorService {
     ) {}
     async execute({ name, cnpj }: IRequest): Promise<EnteDevedor> {
         const cnpjIsValid = cnpjValidator.isValid(cnpj);
-        if (!cnpjIsValid) throw new AppError("Invalid cnpj number!");
+        if (!cnpjIsValid) {
+            throw new AppError("Invalid cnpj number!");
+        }
+
         const enteDevedorAlreadyExists =
             await this.enteDevedorRepository.findByCnpj(cnpj);
-        if (enteDevedorAlreadyExists)
+        if (enteDevedorAlreadyExists) {
             throw new AppError("Ente Devedor already exists!");
-        const enteDevedor = await this.enteDevedorRepository.create({
+        }
+
+        return this.enteDevedorRepository.create({
             name,
             cnpj,
         });
-        return enteDevedor;
     }
 }

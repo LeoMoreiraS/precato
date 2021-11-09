@@ -17,13 +17,16 @@ export class CreateCredorService {
     ) {}
     async execute({ name, cpf }: IRequest): Promise<Credor> {
         const cpfIsValid = cpfValidator.isValid(cpf);
-        if (!cpfIsValid) throw new AppError("Invalid cpf number!");
+        if (!cpfIsValid) {
+            throw new AppError("Invalid cpf number!");
+        }
         const credorAlreadyExists = await this.credorRepository.findByCpf(cpf);
-        if (credorAlreadyExists) throw new AppError("Credor already exists!");
-        const credor = await this.credorRepository.create({
+        if (credorAlreadyExists) {
+            throw new AppError("Credor already exists!");
+        }
+        return this.credorRepository.create({
             name,
             cpf,
         });
-        return credor;
     }
 }

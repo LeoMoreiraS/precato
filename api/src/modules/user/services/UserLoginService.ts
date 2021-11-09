@@ -26,15 +26,20 @@ export class UserLoginService {
 
     async execute({ email, password }: IRequest): Promise<IResponse> {
         const emailIsValid = emailValidator(email);
-        if (!emailIsValid) throw new AppError("Invalid credentials!", 401);
-        const user = await this.userRepository.findByEmail(email);
+        if (!emailIsValid) {
+            throw new AppError("Invalid credentials!", 401);
+        }
 
+        const user = await this.userRepository.findByEmail(email);
         if (!user) {
             throw new AppError("Invalid credentials!", 401);
         }
 
         const passwordCorrect = await compare(password, user.password);
-        if (!passwordCorrect) throw new AppError("Invalid credentials!", 401);
+        if (!passwordCorrect) {
+            throw new AppError("Invalid credentials!", 401);
+        }
+
         const token = sign({}, process.env.SECRET || "123", {
             subject: user.id,
             expiresIn: "1d",

@@ -17,23 +17,19 @@ export class UpdateCredorStatusService {
     ) {}
     async execute({ approval, cpf }: IRequest): Promise<Credor> {
         const cpfIsValid = cpfValidator.isValid(cpf);
-        if (!cpfIsValid) throw new AppError("Invalid cpf number!");
+        if (!cpfIsValid) {
+            throw new AppError("Invalid cpf number!");
+        }
+
         const credorExists = await this.credorRepository.findByCpf(cpf);
-        if (!credorExists) throw new AppError("Credor not found!");
-        if (approval === true) {
-            const credor = await this.credorRepository.updateStatus({
-                status: "Approved",
-                cpf,
-            });
-            return credor;
+        if (!credorExists) {
+            throw new AppError("Credor not found!");
         }
-        if (approval === false) {
-            const credor = await this.credorRepository.updateStatus({
-                status: "Rejected",
-                cpf,
-            });
-            return credor;
-        }
-        throw new AppError("Invalid option for status!");
+
+        const status = approval ? "Approved" : "Rejected";
+        return this.credorRepository.updateStatus({
+            status,
+            cpf,
+        });
     }
 }

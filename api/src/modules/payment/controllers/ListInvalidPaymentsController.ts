@@ -10,6 +10,9 @@ export class ListInvalidPaymentsController {
         );
 
         const payments = await listInvalidPaymentsService.execute();
-        return response.json(payments).status(200);
+        if (payments.length !== 0) {
+            return response.json(payments).status(200);
+        }
+        return response.json({}).status(204);
     }
 }

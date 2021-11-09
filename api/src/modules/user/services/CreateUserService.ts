@@ -20,19 +20,20 @@ export class CreateUserService {
     ) {}
     async execute({ name, email, password }: IRequest): Promise<User> {
         const emailIsValid = emailValidator(email);
-        if (!emailIsValid) throw new AppError("Invalid email address!");
-        const emailAlreadyExists = await this.userRepository.findByEmail(email);
+        if (!emailIsValid) {
+            throw new AppError("Invalid email address!");
+        }
 
+        const emailAlreadyExists = await this.userRepository.findByEmail(email);
         if (emailAlreadyExists) {
             throw new AppError("Email already exists!");
         }
 
         const password_hash = await hash(password, 10);
-        const user = await this.userRepository.create({
+        return this.userRepository.create({
             name,
             email,
             password: password_hash,
         });
-        return user;
     }
 }

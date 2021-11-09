@@ -8,6 +8,11 @@ export class ListCredoresController {
         const listCredoresService = container.resolve(ListCredoresService);
 
         const credores = await listCredoresService.execute();
-        return response.json(credores).status(200);
+
+        if (credores.length !== 0) {
+            return response.json(credores).status(200);
+        }
+
+        return response.json({}).status(204);
     }
 }

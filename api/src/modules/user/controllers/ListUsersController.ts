@@ -8,6 +8,9 @@ export class ListUsersController {
         const listUsersService = container.resolve(ListUsersService);
 
         const users = await listUsersService.execute();
-        return response.json(users).status(200);
+        if (users.length !== 0) {
+            return response.json(users).status(200);
+        }
+        return response.json({}).status(204);
     }
 }
