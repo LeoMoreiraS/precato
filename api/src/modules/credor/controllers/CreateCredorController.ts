@@ -12,6 +12,6 @@ export class CreateCredorController {
             throw new AppError("Missing params on body!");
         }
         const credor = await createCredorService.execute({ cpf, name });
-        return response.json(credor).status(201);
+        return response.status(201).json(credor);
     }
 }
