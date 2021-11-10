@@ -3,6 +3,7 @@ import "reflect-metadata";
 import { container } from "tsyringe";
 
 import { ICredorRepository } from "../..";
+import { AppError } from "../../../../shared/errors/AppError";
 import {
     date,
     duplicated_cpf,
@@ -29,12 +30,12 @@ describe("CreateCredorService tests", () => {
         });
     });
     test("Should throw if a cpf is invalid", () => {
-        const spyService = jest.spyOn(createCredorService, "execute");
-        createCredorService.execute({
-            name: "valid_name",
-            cpf: "123.456.789-80",
-        });
-        expect(spyService).toThrow();
+        expect(
+            createCredorService.execute({
+                name: "valid_name",
+                cpf: "123.456.789-80",
+            })
+        ).rejects.toEqual(new AppError("Invalid cpf number!"));
     });
     test("Should return correct values", async () => {
         const credor = await createCredorService.execute({
@@ -52,11 +53,11 @@ describe("CreateCredorService tests", () => {
         });
     });
     test("Should not create credor if a credor cpf already exists", () => {
-        const spyService = jest.spyOn(createCredorService, "execute");
-        createCredorService.execute({
-            name: "valid_name",
-            cpf: duplicated_cpf,
-        });
-        expect(spyService).toThrow();
+        expect(
+            createCredorService.execute({
+                name: "valid_name",
+                cpf: duplicated_cpf,
+            })
+        ).rejects.toEqual(new AppError("Credor already exists!"));
     });
 });

@@ -3,6 +3,7 @@ import "reflect-metadata";
 import { container, injectable } from "tsyringe";
 
 import { IUserRepository, ICreateUserDTO, User } from "../..";
+import { AppError } from "../../../../shared/errors/AppError";
 import { CreateUserService } from "../CreateUserService";
 
 const date = new Date();
@@ -79,33 +80,27 @@ describe("CreateUserService tests", () => {
             .createChildContainer()
             .register<IUserRepository>("UserRepository", StubRepository)
             .resolve(CreateUserService);
-        const spyService = jest.spyOn(createUserService, "execute");
-        try {
+
+        expect(
             createUserService.execute({
                 name: "valid_name",
                 email: duplicated_email,
                 password: "valid_password",
-            });
-        } catch (e) {
-            expect(spyService).toThrow();
-            expect(e.message).toEqual("Invalid email address!");
-        }
+            })
+        ).rejects.toEqual(new AppError("Email already exists!"));
     });
     test("Should throw if a email is invalid", async () => {
         const createUserService = container
             .createChildContainer()
             .register<IUserRepository>("UserRepository", StubRepository)
             .resolve(CreateUserService);
-        const spyService = jest.spyOn(createUserService, "execute");
-        try {
+
+        expect(
             createUserService.execute({
                 name: "valid_name",
                 email: "invalid_email",
                 password: "valid_password",
-            });
-        } catch (e) {
-            expect(spyService).toThrow();
-            expect(e.message).toEqual("Invalid email address!");
-        }
+            })
+        ).rejects.toEqual(new AppError("Invalid email address!"));
     });
 });

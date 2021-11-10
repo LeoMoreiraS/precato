@@ -84,31 +84,25 @@ describe("UserLoginService tests", () => {
             .createChildContainer()
             .register<IUserRepository>("UserRepository", StubRepository)
             .resolve(UserLoginService);
-        const spyService = jest.spyOn(userLoginService, "execute");
-        try {
+
+        expect(
             userLoginService.execute({
                 email: "email@test.com",
                 password: "invalid_password",
-            });
-        } catch (e) {
-            expect(spyService).toThrow();
-            expect(e.message).toEqual("Invalid credentials!");
-        }
+            })
+        ).rejects.toEqual({ message: "Invalid credentials!", statusCode: 401 });
     });
     test("Should throw if a email is invalid", async () => {
         const userLoginService = container
             .createChildContainer()
             .register<IUserRepository>("UserRepository", StubRepository)
             .resolve(UserLoginService);
-        const spyService = jest.spyOn(userLoginService, "execute");
-        try {
+
+        expect(
             userLoginService.execute({
                 email: "invalid_email",
                 password: "valid_password",
-            });
-        } catch (e) {
-            expect(spyService).toThrow();
-            expect(e.message).toEqual("Invalid credentials!");
-        }
+            })
+        ).rejects.toEqual({ message: "Invalid credentials!", statusCode: 401 });
     });
 });

@@ -3,6 +3,7 @@ import "reflect-metadata";
 import { container } from "tsyringe";
 
 import { IEnteDevedorRepository } from "../..";
+import { AppError } from "../../../../shared/errors/AppError";
 import {
     StubEnteDevedorRepository,
     valid_cnpj,
@@ -35,17 +36,14 @@ describe("CreateEnteDevedor tests", () => {
         });
     });
     test("Should throw if a cnpj is invalid", async () => {
-        const spyService = jest.spyOn(createEnteDevedorService, "execute");
-        try {
+        expect(
             createEnteDevedorService.execute({
                 name: "valid_name",
                 cnpj: "12.345.11/0001-21",
-            });
-        } catch (e) {
-            expect(spyService).toThrow();
-            expect(e.message).toEqual("Invalid cnpj number!");
-        }
+            })
+        ).rejects.toEqual(new AppError("Invalid cnpj number!"));
     });
+
     test("Should return correct values", async () => {
         const enteDevedor = await createEnteDevedorService.execute({
             name: "valid_name",
@@ -60,14 +58,11 @@ describe("CreateEnteDevedor tests", () => {
         });
     });
     test("Should not create a EnteDevedor if EnteDevedor cnpj already exists", () => {
-        const spyService = jest.spyOn(createEnteDevedorService, "execute");
-        try {
+        expect(
             createEnteDevedorService.execute({
                 name: "valid_name",
                 cnpj: duplicated_cnpj,
-            });
-        } catch (e) {
-            expect(spyService).toThrow();
-        }
+            })
+        ).rejects.toEqual(new AppError("Ente Devedor already exists!"));
     });
 });

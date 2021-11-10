@@ -2,6 +2,7 @@ import "reflect-metadata";
 import { container } from "tsyringe";
 
 import { ICredorRepository } from "../..";
+import { AppError } from "../../../../shared/errors/AppError";
 import {
     date,
     duplicated_cpf,
@@ -30,12 +31,12 @@ describe("UpdateCredorStatusService tests", () => {
         });
     });
     test("Should throw if a cpf is invalid", () => {
-        const spyService = jest.spyOn(updateCredorStatusService, "execute");
-        updateCredorStatusService.execute({
-            approval: true,
-            cpf: "123.456.789-80",
-        });
-        expect(spyService).toThrow();
+        expect(
+            updateCredorStatusService.execute({
+                approval: true,
+                cpf: "123.456.789-80",
+            })
+        ).rejects.toEqual(new AppError("Invalid cpf number!"));
     });
     test("Should return correct values if credor is approved", async () => {
         const credor = await updateCredorStatusService.execute({
