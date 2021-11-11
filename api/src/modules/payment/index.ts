@@ -6,3 +6,4 @@ export * from "./entities/Payment";
 export * from "./controllers/CreatePaymentController";
 export * from "./controllers/ListInvalidPaymentsController";
 export * from "./controllers/ListPaymentsController";
+export * from "./controllers/GenerateStatsController";
