@@ -597,6 +597,46 @@
                     }
                 }
             }
+        },
+        "/payment/stats": {
+            "get": {
+                "tags": ["Payment"],
+                "summary": "Show some basic stats about payments",
+                "description": "Show the number of payments, revenue (start value - end value) of all valid payments, the number of valid payments and the number of invalid payments",
+                "security": [
+                    {
+                        "authorization": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "revenue": {
+                                            "type": "number",
+                                            "format": "float"
+                                        },
+                                        "num_payments": {
+                                            "type": "number",
+                                            "format": "int"
+                                        },
+                                        "invalid_payments": {
+                                            "type": "number"
+                                        },
+                                        "valid_payments": {
+                                            "type": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
