@@ -87,7 +87,7 @@ export class CreatePaymentService {
                 status,
             });
         } catch (error) {
-            return this.paymentRepository.create({
+            await this.paymentRepository.create({
                 delivery_id,
                 credor_id,
                 ente_devedor_id: ente_id,
@@ -97,6 +97,7 @@ export class CreatePaymentService {
                 status,
                 reason,
             });
+            throw new AppError(reason);
         }
     }
 }
