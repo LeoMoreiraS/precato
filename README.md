@@ -1,4 +1,4 @@
-# Api desenvolvida no desafio desenvolvedor backend para [Precato](https://github.com/precato/desafio-dev-back-end)
+# Desafio desenvolvedor backend para [Precato](https://github.com/precato/desafio-dev-back-end)
 ## Instruções para rodar o projeto:
 ### Pré-requisitos
 
